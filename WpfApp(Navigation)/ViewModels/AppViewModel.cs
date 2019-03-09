@@ -1,10 +1,12 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
+using GalaSoft.MvvmLight.Messaging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WpfApp_Navigation_.Services;
 
 namespace WpfApp_Navigation_.ViewModels
 {
@@ -13,15 +15,15 @@ namespace WpfApp_Navigation_.ViewModels
         private ViewModelBase currentPage;
         public ViewModelBase CurrentPage { get => currentPage; set => Set(ref currentPage, value); }
 
-        public AppViewModel()
+        private INavigationService navigationService = new NavigationService();
+
+        private readonly INavigationService navigation;
+
+        public AppViewModel(INavigationService navigation)
         {
-            viewModels.Add("First", new FirstViewModel());
-            viewModels.Add("Second", new SecondViewModel());
-
-            CurrentPage = viewModels["First"];
+            Messenger.Default.Register<ViewModelBase>(this, viewModel => CurrentPage = viewModel);
+            this.navigation = navigation;
         }
-
-        private Dictionary<string, ViewModelBase> viewModels = new Dictionary<string, ViewModelBase>();
 
         private RelayCommand<string> navigateCommand;
         public RelayCommand<string> NavigateCommand
@@ -29,7 +31,7 @@ namespace WpfApp_Navigation_.ViewModels
             get => navigateCommand ?? (navigateCommand = new RelayCommand<string>(
             param =>
             {
-                CurrentPage = viewModels[param];
+                navigation.Navigate(param);
             }
             ));
         }

@@ -10,9 +10,10 @@
         <ResourceDictionary Source="../DataTemplates.xaml"/>
     </Window.Resources>
     <DockPanel>
-        <UniformGrid Rows="1" Columns="2" DockPanel.Dock="Top">
+        <UniformGrid Rows="1" Columns="3" DockPanel.Dock="Top">
             <Button Command="{Binding NavigateCommand}" CommandParameter="First" FontSize="20" Content="First"/>
             <Button Command="{Binding NavigateCommand}" CommandParameter="Second" FontSize="20" Content="Second"/>
+            <Button Command="{Binding NavigateCommand}" CommandParameter="Third" FontSize="20" Content="Third"/>
         </UniformGrid>
         <ContentControl Content="{Binding CurrentPage}"/>
     </DockPanel>

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WpfApp_Navigation_.Messages;
 
 namespace WpfApp_Navigation_.ViewModels
 {
@@ -15,10 +16,10 @@ namespace WpfApp_Navigation_.ViewModels
 
         public FirstViewModel()
         {
-            Messenger.Default.Register<string>(this,
+            Messenger.Default.Register<FirstMessage>(this,
             msg =>
             {
-                Message = msg;
+                Message = msg.Message;
             });
         }
     }

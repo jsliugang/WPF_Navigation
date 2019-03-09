@@ -4,11 +4,21 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WpfApp_Navigation_.Views"
+             xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Platform"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <StackPanel>
-        <Label FontSize="50">Second</Label>
+        <Label FontSize="50" Content="Second">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseDoubleClick">
+                    <cmd:EventToCommand Command="{Binding DoubleClickCommnad}"
+                                        PassEventArgsToCommand="True"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </Label>
         <TextBox FontSize="50" Text="{Binding Text, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <Button FontSize="50" Command="{Binding SendCommand}">Send</Button>
+        <Button FontSize="50" Command="{Binding SendCommand}" CommandParameter="First">Send to First</Button>
+        <Button FontSize="50" Command="{Binding SendCommand}" CommandParameter="Third">Send to Third</Button>
     </StackPanel>
 </UserControl>
